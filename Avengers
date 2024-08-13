@@ -1,0 +1,1190 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "ad5b3736",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009444,
+     "end_time": "2024-08-13T17:51:42.361375",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.351931",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Importing Dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "90550e26",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.381475Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.380727Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.392087Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.391267Z"
+    },
+    "papermill": {
+     "duration": 0.023688,
+     "end_time": "2024-08-13T17:51:42.393996",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.370308",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import os"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "fefc4d06",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.413487Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.413149Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.418626Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.417747Z"
+    },
+    "papermill": {
+     "duration": 0.017568,
+     "end_time": "2024-08-13T17:51:42.420573",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.403005",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "def extract():\n",
+    "    text = ''\n",
+    "    path = '/kaggle/input/marvel-cinematic-universe-dialogue-dataset'\n",
+    "    for file in os.listdir(path):\n",
+    "        path_file = os.path.join(path + '/', file)\n",
+    "        with open(path_file, 'r', errors= 'ignore') as f:\n",
+    "            text += f.read()\n",
+    "    return text"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "5297539c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.439721Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.439393Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.594608Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.593679Z"
+    },
+    "papermill": {
+     "duration": 0.167611,
+     "end_time": "2024-08-13T17:51:42.597024",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.429413",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "text = extract()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "254f3529",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.616366Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.615819Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.622156Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.621378Z"
+    },
+    "papermill": {
+     "duration": 0.018094,
+     "end_time": "2024-08-13T17:51:42.624082",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.605988",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'(BUCKY SCREAMING)\\n(CONTINUES SCREAMING)\\n- (KARPOV SPEAKING RUSSIAN) - (PANTING)\\nLonging\\nRusted\\nSeven'"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "text[:100]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "61292257",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00855,
+     "end_time": "2024-08-13T17:51:42.641403",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.632853",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Text Processing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "a755d84f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.660777Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.660515Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.667341Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.666524Z"
+    },
+    "papermill": {
+     "duration": 0.01913,
+     "end_time": "2024-08-13T17:51:42.669306",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.650176",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "class Preprocess():\n",
+    "    def __init__(self, text):\n",
+    "        super().__init__()\n",
+    "        self.text = text\n",
+    "        \n",
+    "    def create_vocab(self):\n",
+    "        vocab = sorted(list(set(self.text)))\n",
+    "        self.stoi = {s: i for i, s in enumerate(vocab)}\n",
+    "        self.itos = {i: s for s, i in self.stoi.items()}\n",
+    "        return vocab, len(vocab), self.stoi, self.itos\n",
+    "    \n",
+    "    def encode(self, string):\n",
+    "        return [self.stoi[char] for char in string]\n",
+    "    \n",
+    "    def decode(self, array):\n",
+    "        return ''.join(self.itos[idx] for idx in array)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "9cb518b1",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.687845Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.687565Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.709312Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.708480Z"
+    },
+    "papermill": {
+     "duration": 0.033049,
+     "end_time": "2024-08-13T17:51:42.711143",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.678094",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "text_processor = Preprocess(text)\n",
+    "vocab, vocab_size, stoi, itos = text_processor.create_vocab()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "a2a720da",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.729487Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.729245Z",
+     "iopub.status.idle": "2024-08-13T17:51:42.736304Z",
+     "shell.execute_reply": "2024-08-13T17:51:42.735516Z"
+    },
+    "papermill": {
+     "duration": 0.018441,
+     "end_time": "2024-08-13T17:51:42.738214",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.719773",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[61, 58, 65, 65, 68]\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'hello'"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "print(text_processor.encode('hello'))\n",
+    "text_processor.decode(text_processor.encode('hello'))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7c316f73",
+   "metadata": {
+    "papermill": {
+     "duration": 0.008622,
+     "end_time": "2024-08-13T17:51:42.755690",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.747068",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Set Device"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "71a7c92b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:42.774531Z",
+     "iopub.status.busy": "2024-08-13T17:51:42.774292Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.077358Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.076559Z"
+    },
+    "papermill": {
+     "duration": 3.314972,
+     "end_time": "2024-08-13T17:51:46.079629",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:42.764657",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import torch"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "75aaa00a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.099069Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.098684Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.152869Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.152001Z"
+    },
+    "papermill": {
+     "duration": 0.066256,
+     "end_time": "2024-08-13T17:51:46.155055",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.088799",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'cuda'"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "device = 'cuda' if torch.cuda.is_available() else 'cpu'\n",
+    "device"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "314d7535",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009015,
+     "end_time": "2024-08-13T17:51:46.173506",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.164491",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Split Dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "4ead2a99",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.194415Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.193429Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.198267Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.197244Z"
+    },
+    "papermill": {
+     "duration": 0.017564,
+     "end_time": "2024-08-13T17:51:46.200304",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.182740",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import torch.nn as nn"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "9fd5ba9a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.220161Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.219825Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.530810Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.529734Z"
+    },
+    "papermill": {
+     "duration": 0.32334,
+     "end_time": "2024-08-13T17:51:46.532907",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.209567",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(tensor([ 8, 29, 48, 30, 38, 52,  1, 46, 30, 45, 32, 28, 40, 36, 41, 34,  9,  0,\n",
+       "          8, 30, 42, 41, 47, 36, 41, 48, 32, 46,  1, 46, 30, 45, 32, 28, 40, 36,\n",
+       "         41, 34,  9,  0, 12,  1,  8, 38, 28, 45, 43, 42, 49,  1]),\n",
+       " 1147310)"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data = torch.tensor(text_processor.encode(text), dtype = torch.long)\n",
+    "data[:50], len(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "9a0a9839",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.553044Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.552429Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.558471Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.557617Z"
+    },
+    "papermill": {
+     "duration": 0.018078,
+     "end_time": "2024-08-13T17:51:46.560447",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.542369",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(917848, 229462)"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "n = int(0.8 * len(data))\n",
+    "train = data[:n]\n",
+    "val = data[n:]\n",
+    "len(train), len(val)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "088be14f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.580621Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.579951Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.585510Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.584753Z"
+    },
+    "papermill": {
+     "duration": 0.017575,
+     "end_time": "2024-08-13T17:51:46.587340",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.569765",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "def split(type):\n",
+    "    data = train if type == 'train' else val\n",
+    "    idx = torch.randint(len(data) - block_size, (batch_size, ))\n",
+    "    X = torch.stack([data[i: i + block_size] for i in idx])\n",
+    "    y = torch.stack([data[i + 1: i + block_size + 1] for i in idx])\n",
+    "    X, y = X.to(device), y.to(device)\n",
+    "    return X, y"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "c143dc89",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.606846Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.606219Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.610540Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.609759Z"
+    },
+    "papermill": {
+     "duration": 0.015968,
+     "end_time": "2024-08-13T17:51:46.612401",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.596433",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "batch_size = 64 \n",
+    "block_size = 256 \n",
+    "max_iters = 5000\n",
+    "eval_interval = 500\n",
+    "learning_rate = 1e-3\n",
+    "eval_iters = 200\n",
+    "n_embd = 384\n",
+    "n_head = 6\n",
+    "n_layer = 6\n",
+    "dropout = 0.2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "1d339651",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.632407Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.631875Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.800809Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.799571Z"
+    },
+    "papermill": {
+     "duration": 0.181439,
+     "end_time": "2024-08-13T17:51:46.803216",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.621777",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(torch.Size([64, 256]), torch.Size([64, 256]))"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Xtr, ytr = split('train')\n",
+    "Xtr.shape, ytr.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e387eb4f",
+   "metadata": {
+    "papermill": {
+     "duration": 0.013041,
+     "end_time": "2024-08-13T17:51:46.831208",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.818167",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Define Error List"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "d8bd2460",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.855326Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.854933Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.859615Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.858761Z"
+    },
+    "papermill": {
+     "duration": 0.01741,
+     "end_time": "2024-08-13T17:51:46.861481",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.844071",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import torch.nn.functional as F"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "4799d910",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.886031Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.885418Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.891837Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.890885Z"
+    },
+    "papermill": {
+     "duration": 0.022655,
+     "end_time": "2024-08-13T17:51:46.893926",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.871271",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "@torch.no_grad()\n",
+    "def estimate_loss():\n",
+    "    out = {}\n",
+    "    model.eval()\n",
+    "    for splits in ['train', 'val']:\n",
+    "        losses = torch.zeros(eval_iters)\n",
+    "        for k in range(eval_iters):\n",
+    "            X, Y = split(splits)\n",
+    "            logits, loss = model(X, Y)\n",
+    "            losses[k] = loss.item()\n",
+    "        out[splits] = losses.mean()\n",
+    "    model.train()\n",
+    "    return out"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7f746fb7",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009612,
+     "end_time": "2024-08-13T17:51:46.913660",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.904048",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Create Model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "e0b8f9bd",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.934666Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.934281Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.946885Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.946007Z"
+    },
+    "papermill": {
+     "duration": 0.025876,
+     "end_time": "2024-08-13T17:51:46.949186",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.923310",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "class Head(nn.Module):\n",
+    "    def __init__(self, head_size):\n",
+    "        super().__init__()\n",
+    "        self.key = nn.Linear(n_embd, head_size, bias=False)\n",
+    "        self.query = nn.Linear(n_embd, head_size, bias=False)\n",
+    "        self.value = nn.Linear(n_embd, head_size, bias=False)\n",
+    "        self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))\n",
+    "\n",
+    "        self.dropout = nn.Dropout(dropout)\n",
+    "\n",
+    "    def forward(self, x):\n",
+    "        B,T,C = x.shape\n",
+    "        k = self.key(x)   # (B,T,C)\n",
+    "        q = self.query(x) # (B,T,C)\n",
+    "        wei = q @ k.transpose(-2,-1) * C**-0.5 # (B, T, C) @ (B, C, T) -> (B, T, T)\n",
+    "        wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf')) # (B, T, T)\n",
+    "        wei = F.softmax(wei, dim=-1) # (B, T, T)\n",
+    "        wei = self.dropout(wei)\n",
+    "        v = self.value(x) # (B,T,C)\n",
+    "        out = wei @ v # (B, T, T) @ (B, T, C) -> (B, T, C)\n",
+    "        return out"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "2eb6b4e8",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:46.975263Z",
+     "iopub.status.busy": "2024-08-13T17:51:46.974480Z",
+     "iopub.status.idle": "2024-08-13T17:51:46.982067Z",
+     "shell.execute_reply": "2024-08-13T17:51:46.981229Z"
+    },
+    "papermill": {
+     "duration": 0.021544,
+     "end_time": "2024-08-13T17:51:46.983942",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.962398",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "class MultiHeadAttention(nn.Module):\n",
+    "    def __init__(self, num_heads, head_size):\n",
+    "        super().__init__()\n",
+    "        self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])\n",
+    "        self.proj = nn.Linear(n_embd, n_embd)\n",
+    "        self.dropout = nn.Dropout(dropout)\n",
+    "\n",
+    "    def forward(self, x):\n",
+    "        out = torch.cat([h(x) for h in self.heads], dim=-1)\n",
+    "        out = self.dropout(self.proj(out))\n",
+    "        return out"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "67d6d367",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:47.004877Z",
+     "iopub.status.busy": "2024-08-13T17:51:47.003979Z",
+     "iopub.status.idle": "2024-08-13T17:51:47.018910Z",
+     "shell.execute_reply": "2024-08-13T17:51:47.009735Z"
+    },
+    "papermill": {
+     "duration": 0.027691,
+     "end_time": "2024-08-13T17:51:47.021207",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:46.993516",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "class FeedFoward(nn.Module):\n",
+    "    def __init__(self, n_embd):\n",
+    "        super().__init__()\n",
+    "        self.net = nn.Sequential(\n",
+    "            nn.Linear(n_embd, 4 * n_embd),\n",
+    "            nn.ReLU(),\n",
+    "            nn.Linear(4 * n_embd, n_embd),\n",
+    "            nn.Dropout(dropout),\n",
+    "        )\n",
+    "\n",
+    "    def forward(self, x):\n",
+    "        return self.net(x)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "c052b43a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:47.048576Z",
+     "iopub.status.busy": "2024-08-13T17:51:47.048283Z",
+     "iopub.status.idle": "2024-08-13T17:51:47.054234Z",
+     "shell.execute_reply": "2024-08-13T17:51:47.053375Z"
+    },
+    "papermill": {
+     "duration": 0.022205,
+     "end_time": "2024-08-13T17:51:47.056562",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:47.034357",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "class Block(nn.Module):\n",
+    "    def __init__(self, n_embd, n_head):\n",
+    "        super().__init__()\n",
+    "        head_size = n_embd // n_head\n",
+    "        self.sa = MultiHeadAttention(n_head, head_size)\n",
+    "        self.ffwd = FeedFoward(n_embd)\n",
+    "        self.ln1 = nn.LayerNorm(n_embd)\n",
+    "        self.ln2 = nn.LayerNorm(n_embd)\n",
+    "\n",
+    "    def forward(self, x):\n",
+    "        x = x + self.sa(self.ln1(x))\n",
+    "        x = x + self.ffwd(self.ln2(x))\n",
+    "        return x"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "8fd183af",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:47.079733Z",
+     "iopub.status.busy": "2024-08-13T17:51:47.079208Z",
+     "iopub.status.idle": "2024-08-13T17:51:47.089937Z",
+     "shell.execute_reply": "2024-08-13T17:51:47.089086Z"
+    },
+    "papermill": {
+     "duration": 0.023036,
+     "end_time": "2024-08-13T17:51:47.092102",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:47.069066",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "class BigramLanguageModel(nn.Module):\n",
+    "    def __init__(self):\n",
+    "        super().__init__()\n",
+    "        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)\n",
+    "        self.position_embedding_table = nn.Embedding(block_size, n_embd)\n",
+    "        self.blocks = nn.Sequential(*[Block(n_embd, n_head=n_head) for _ in range(n_layer)])\n",
+    "        self.ln_f = nn.LayerNorm(n_embd) # final layer norm\n",
+    "        self.lm_head = nn.Linear(n_embd, vocab_size)\n",
+    "\n",
+    "    def forward(self, idx, targets=None):\n",
+    "        B, T = idx.shape\n",
+    "        tok_emb = self.token_embedding_table(idx) # (B,T,C)\n",
+    "        pos_emb = self.position_embedding_table(torch.arange(T, device=device)) # (T,C)\n",
+    "        x = tok_emb + pos_emb # (B,T,C)\n",
+    "        x = self.blocks(x) # (B,T,C)\n",
+    "        x = self.ln_f(x) # (B,T,C)\n",
+    "        logits = self.lm_head(x) # (B,T,vocab_size)\n",
+    "\n",
+    "        if targets is None:\n",
+    "            loss = None\n",
+    "        else:\n",
+    "            B, T, C = logits.shape\n",
+    "            logits = logits.view(B*T, C)\n",
+    "            targets = targets.view(B*T)\n",
+    "            loss = F.cross_entropy(logits, targets)\n",
+    "\n",
+    "        return logits, loss\n",
+    "\n",
+    "    def generate(self, idx, max_new_tokens):\n",
+    "        for _ in range(max_new_tokens):\n",
+    "            idx_cond = idx[:, -block_size:]\n",
+    "            logits, loss = self(idx_cond)\n",
+    "            logits = logits[:, -1, :] # becomes (B, C)\n",
+    "            probs = F.softmax(logits, dim=-1) # (B, C)\n",
+    "            idx_next = torch.multinomial(probs, num_samples=1) # (B, 1)\n",
+    "            idx = torch.cat((idx, idx_next), dim=1) # (B, T+1)\n",
+    "        return idx"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "1ffbd7db",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:47.115977Z",
+     "iopub.status.busy": "2024-08-13T17:51:47.115659Z",
+     "iopub.status.idle": "2024-08-13T17:51:47.325705Z",
+     "shell.execute_reply": "2024-08-13T17:51:47.324694Z"
+    },
+    "papermill": {
+     "duration": 0.223214,
+     "end_time": "2024-08-13T17:51:47.328374",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:47.105160",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10.80354 M parameters\n"
+     ]
+    }
+   ],
+   "source": [
+    "model = BigramLanguageModel()\n",
+    "m = model.to(device)\n",
+    "print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ba568af5",
+   "metadata": {
+    "papermill": {
+     "duration": 0.009753,
+     "end_time": "2024-08-13T17:51:47.351068",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:47.341315",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Train the Model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "0637d63e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T17:51:47.371970Z",
+     "iopub.status.busy": "2024-08-13T17:51:47.371628Z",
+     "iopub.status.idle": "2024-08-13T18:21:15.729465Z",
+     "shell.execute_reply": "2024-08-13T18:21:15.728337Z"
+    },
+    "papermill": {
+     "duration": 1768.430364,
+     "end_time": "2024-08-13T18:21:15.790861",
+     "exception": false,
+     "start_time": "2024-08-13T17:51:47.360497",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "step 0: train loss 4.6202, val loss 4.6246\n",
+      "step 500: train loss 1.6824, val loss 1.7105\n",
+      "step 1000: train loss 1.3301, val loss 1.4360\n",
+      "step 1500: train loss 1.1900, val loss 1.3666\n",
+      "step 2000: train loss 1.0956, val loss 1.3502\n",
+      "step 2500: train loss 1.0190, val loss 1.3519\n",
+      "step 3000: train loss 0.9469, val loss 1.3751\n",
+      "step 3500: train loss 0.8748, val loss 1.4030\n",
+      "step 4000: train loss 0.8053, val loss 1.4440\n",
+      "step 4500: train loss 0.7431, val loss 1.4828\n",
+      "step 4999: train loss 0.6812, val loss 1.5284\n"
+     ]
+    }
+   ],
+   "source": [
+    "optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)\n",
+    "\n",
+    "for iter in range(max_iters):\n",
+    "    if iter % eval_interval == 0 or iter == max_iters - 1:\n",
+    "        losses = estimate_loss()\n",
+    "        print(f\"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}\")\n",
+    "    xb, yb = split('train')\n",
+    "    logits, loss = model(xb, yb)\n",
+    "    optimizer.zero_grad(set_to_none=True)\n",
+    "    loss.backward()\n",
+    "    optimizer.step()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2d68aaf4",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010243,
+     "end_time": "2024-08-13T18:21:15.811619",
+     "exception": false,
+     "start_time": "2024-08-13T18:21:15.801376",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Generate Text"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "73b9c843",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T18:21:15.833811Z",
+     "iopub.status.busy": "2024-08-13T18:21:15.833318Z",
+     "iopub.status.idle": "2024-08-13T18:21:15.838517Z",
+     "shell.execute_reply": "2024-08-13T18:21:15.837714Z"
+    },
+    "papermill": {
+     "duration": 0.018486,
+     "end_time": "2024-08-13T18:21:15.840416",
+     "exception": false,
+     "start_time": "2024-08-13T18:21:15.821930",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "def generate(num_words):\n",
+    "    context = torch.zeros((1, 1), dtype=torch.long, device=device)\n",
+    "    print(text_processor.decode(m.generate(context, max_new_tokens = num_words)[0].tolist()))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "6a705bb2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-08-13T18:21:15.862369Z",
+     "iopub.status.busy": "2024-08-13T18:21:15.862085Z",
+     "iopub.status.idle": "2024-08-13T18:21:48.437260Z",
+     "shell.execute_reply": "2024-08-13T18:21:48.436346Z"
+    },
+    "papermill": {
+     "duration": 32.599968,
+     "end_time": "2024-08-13T18:21:48.450879",
+     "exception": false,
+     "start_time": "2024-08-13T18:21:15.850911",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "We are not an another story.\n",
+      "- (WOMAN SPEAKING GERMAN) - I don't know what they sign here.\n",
+      "You all right? I'm gonna try sold straight.\n",
+      "- We have was them. - (CHOINS)\n",
+      "(RETCHING)\n",
+      "Make such eagan. - SHATTERIK WING)\n",
+      "Put on his throat.\n",
+      "Sorry from the serum walned\n",
+      "and overthrough the building us the Valkyrie\n",
+      "and call to your warehole.\n",
+      "I really don't enjoy anytime...\n",
+      "or I'll do suplihulanced probably permise.\n",
+      "Way these keye? We can.\n",
+      "Thank you, Dr. Pym...\n",
+      "where are you?\n",
+      "Then he's all catm phasing...\n",
+      "and fait of you.\n",
+      "Hey, Here, Parken.\n",
+      "What? Where are you impress?\n",
+      "Uh...\n",
+      "Oh, my olds, look. You're gonna be trying to the beast.\n",
+      "So just little drink?\n",
+      "I mean, to put a job who can do an end\n",
+      "Rogenwich shots in the business together.\n",
+      "Whoa.\n",
+      "And the free?\n",
+      "You've never got to dead as pretty killed.\n",
+      "Earth to Pegasus HYDRA paradox and peaceful veillerable protogy and alone.\n",
+      "I'm sorry about you, no.\n",
+      "Well, I am a donor with all thing.\n",
+      "Is everyone on your brother, so, sir.\n",
+      "Defend another compete.\n",
+      "More reasly, Mr Doctor.\n",
+      "Did it know?\n",
+      "I used to give some myself.\n",
+      "I was trying.\n",
+      "(MJOLNIR SSIRES Stark, won't do that to me, Miss Potts?\n",
+      "You're my bestest friend.\n",
+      "Probably, M'Baku.\n",
+      "(SING)\n",
+      "Oh, I have eyes on Polton.\n",
+      "You could make her to Budapest the sides...\n",
+      "I am changing you doof.\n",
+      "It's just almost signata, just not easier.\n",
+      "I need that.\n",
+      "(CEPING)\n",
+      "The new York has a purner around etern.\n",
+      "Sin7, take vengers to the Pengbood.\n",
+      "Show me our hasn't been sixtingled the top range.\n",
+      "Hi, little thing you goes break.\n",
+      "Mr. Stark?\n",
+      "It's been an hour time at high skey.\n",
+      "Okay. Giard old.\n",
+      "Kneel out of the habdidness with them.\n",
+      "Well, I read in the crock.\n",
+      "- What? - Karen, you look gready?\n",
+      "Oh.\n",
+      "You're absed great an uncharactical natary, MPC tonitical.\n",
+      "Like Alemen, to Give.\n",
+      "What's the Great, Grandmaster?\n",
+      "Does Does I have any one fool? Yeah.\n",
+      "I really got a hoome right to people was so serious questions,\n",
+      "no just that armor, and... We don't have take the war!\n",
+      "Or a table beat.\n",
+      "Look, go, I'm at that, buddy.\n",
+      "Your legacy, antellies, r\n"
+     ]
+    }
+   ],
+   "source": [
+    "generate(2000)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f526513f",
+   "metadata": {
+    "papermill": {
+     "duration": 0.010829,
+     "end_time": "2024-08-13T18:21:48.472282",
+     "exception": false,
+     "start_time": "2024-08-13T18:21:48.461453",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "gpu",
+   "dataSources": [
+    {
+     "datasetId": 683366,
+     "sourceId": 1199344,
+     "sourceType": "datasetVersion"
+    }
+   ],
+   "isGpuEnabled": true,
+   "isInternetEnabled": true,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.13"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 1810.998746,
+   "end_time": "2024-08-13T18:21:50.656999",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2024-08-13T17:51:39.658253",
+   "version": "2.5.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
