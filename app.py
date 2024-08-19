@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 
 # Import your model and necessary components
-from axiosthingy.py import BigramLanguageModel, device, block_size, Preprocess
+from axiosthingy import BigramLanguageModel, device, block_size, Preprocess
 
 # Load your trained model
 @st.cache_resource
