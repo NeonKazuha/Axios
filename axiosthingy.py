@@ -42,8 +42,8 @@ class Preprocess():
         return ''.join(self.itos[idx] for idx in array)
 
 # %%
-# text_processor = Preprocess(text)
-# vocab, vocab_size, stoi, itos = text_processor.create_vocab()
+text_processor = Preprocess(text)
+vocab, vocab_size, stoi, itos = text_processor.create_vocab()
 
 # # %%
 # print(text_processor.encode('hello'))
