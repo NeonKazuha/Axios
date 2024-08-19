@@ -16,7 +16,7 @@ model = load_model()
 st.title('Avengers Story Generator')
 
 input_text = st.text_area("Enter some starting text:", "Once upon a time")
-max_new_tokens = st.slider("Number of tokens to generate:", 1, 10000, 100)
+max_new_tokens = st.slider("Number of tokens to generate:", 1, 1000, 100)
 
 if st.button('Generate Text'):
     context = torch.tensor(encode(input_text), dtype=torch.long, device=device).unsqueeze(0)
