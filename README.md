@@ -2,16 +2,27 @@
 
 Axios is a PyTorch-based transformer model trained from scratch on a dataset containing subtitles from some Marvel Cinematic Universe (MCU) movies. The primary purpose of this project is to generate text in the style of MCU dialogues.
 
+## Live Demo
+
+Experience the Avengers Story Generator live at: [https://axiosav.streamlit.app/](https://axiosav.streamlit.app/)
+
 ## Features
 
 - **Transformer Model**: Trained from scratch using PyTorch.
 - **Text Generation**: Generates text based on input sequences, mimicking MCU-style dialogues.
-- **Streamlit Frontend**: A user-friendly interface to interact with the model and generate text.
+- **Streamlit Frontend**: A user-friendly web interface to interact with the model and generate text.
 - **MIT License**: This project is open-source and available under the MIT license.
 
-## Installation
+## Getting Started
 
-To run this project locally, you'll need to have Python installed. Follow these steps:
+You can use the application directly through the [live demo](https://axiosav.streamlit.app/) or set it up locally by following the instructions below.
+
+### Prerequisites
+
+- Python 3.7 or higher
+- pip package manager
+
+### Local Installation
 
 1. **Clone the Repository**:
     ```bash
@@ -25,31 +36,31 @@ To run this project locally, you'll need to have Python installed. Follow these 
     pip install -r requirements.txt
     ```
 
-3. **Run the Streamlit App**:
+3. **Download the Pre-trained Model**:
+    - Ensure you have the `avengers.pth` model file in the project directory. If not, download it from [this link](#) and place it in the root directory of the project.
+
+4. **Run the Streamlit App**:
     ```bash
     streamlit run app.py
     ```
 
+    The application will open in your default web browser at `http://localhost:8501/`.
+
 ## Usage
 
-1. Launch the Streamlit app using the command provided above.
-2. Enter some starting text in the text area.
+### Online Usage
+
+1. Visit the [Avengers Story Generator](https://axiosav.streamlit.app/).
+2. Enter some starting text in the text area provided.
 3. Adjust the number of tokens you want to generate using the slider.
 4. Click the "Generate Text" button to see the generated dialogue.
 
-## Built With
+### Local Usage
 
-- **PyTorch**: For training the transformer model.
-- **Streamlit**: For creating the interactive frontend.
+1. Follow the **Local Installation** steps above.
+2. Open your browser and go to `http://localhost:8501/`.
+3. Enter your desired starting text and specify the number of tokens to generate.
+4. Click "Generate Text" to see the output.
 
-## License
+## Project Structure
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contributing
-
-Contributions to this project are not accepted at this time.
-
----
-
-*Note: This project was developed as a demonstration and may not cover all aspects of a production-ready application.*
