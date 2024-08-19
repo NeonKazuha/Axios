@@ -9,7 +9,7 @@ from axiosthingy.ipynb import BigramLanguageModel, device, block_size, Preproces
 @st.cache_resource
 def load_model():
     model = BigramLanguageModel()
-    model.load_state_dict(torch.load('avengers.pth'))
+    model.load_state_dict(torch.load('avengers.pth'), map_location=torch.device('cpu'))
     model.eval()
     return model
 
