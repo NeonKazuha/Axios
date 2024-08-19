@@ -2,23 +2,23 @@
 # # Importing Dataset
 
 # %%
-import os
+# import os
 
 # %%
-def extract():
-    text = ''
-    path = '/kaggle/input/marvel-cinematic-universe-dialogue-dataset'
-    for file in os.listdir(path):
-        path_file = os.path.join(path + '/', file)
-        with open(path_file, 'r', errors= 'ignore') as f:
-            text += f.read()
-    return text
+# def extract():
+#     text = ''
+#     path = '/kaggle/input/marvel-cinematic-universe-dialogue-dataset'
+#     for file in os.listdir(path):
+#         path_file = os.path.join(path + '/', file)
+#         with open(path_file, 'r', errors= 'ignore') as f:
+#             text += f.read()
+#     return text
+
+# # %%
+# text = extract()
 
 # %%
-text = extract()
-
-# %%
-text[:100]
+# text[:100]
 
 # %% [markdown]
 # # Text Processing
@@ -42,12 +42,12 @@ class Preprocess():
         return ''.join(self.itos[idx] for idx in array)
 
 # %%
-text_processor = Preprocess(text)
-vocab, vocab_size, stoi, itos = text_processor.create_vocab()
+# text_processor = Preprocess(text)
+# vocab, vocab_size, stoi, itos = text_processor.create_vocab()
 
-# %%
-print(text_processor.encode('hello'))
-text_processor.decode(text_processor.encode('hello'))
+# # %%
+# print(text_processor.encode('hello'))
+# text_processor.decode(text_processor.encode('hello'))
 
 # %% [markdown]
 # # Set Device
@@ -63,26 +63,26 @@ device
 # # Split Dataset
 
 # %%
-import torch.nn as nn
+# import torch.nn as nn
 
 # %%
-data = torch.tensor(text_processor.encode(text), dtype = torch.long)
-data[:50], len(data)
+# data = torch.tensor(text_processor.encode(text), dtype = torch.long)
+# data[:50], len(data)
+
+# # %%
+# n = int(0.9 * len(data))
+# train = data[:n]
+# val = data[n:]
+# len(train), len(val)
 
 # %%
-n = int(0.9 * len(data))
-train = data[:n]
-val = data[n:]
-len(train), len(val)
-
-# %%
-def split(type):
-    data = train if type == 'train' else val
-    idx = torch.randint(len(data) - block_size, (batch_size, ))
-    X = torch.stack([data[i: i + block_size] for i in idx])
-    y = torch.stack([data[i + 1: i + block_size + 1] for i in idx])
-    X, y = X.to(device), y.to(device)
-    return X, y
+# def split(type):
+#     data = train if type == 'train' else val
+#     idx = torch.randint(len(data) - block_size, (batch_size, ))
+#     X = torch.stack([data[i: i + block_size] for i in idx])
+#     y = torch.stack([data[i + 1: i + block_size + 1] for i in idx])
+#     X, y = X.to(device), y.to(device)
+#     return X, y
 
 # %%
 batch_size = 64 
@@ -97,29 +97,29 @@ n_layer = 6
 dropout = 0.2
 
 # %%
-Xtr, ytr = split('train')
-Xtr.shape, ytr.shape
+# Xtr, ytr = split('train')
+# Xtr.shape, ytr.shape
 
 # %% [markdown]
 # # Define Error List
 
 # %%
-import torch.nn.functional as F
+# import torch.nn.functional as F
 
 # %%
-@torch.no_grad()
-def estimate_loss():
-    out = {}
-    model.eval()
-    for splits in ['train', 'val']:
-        losses = torch.zeros(eval_iters)
-        for k in range(eval_iters):
-            X, Y = split(splits)
-            logits, loss = model(X, Y)
-            losses[k] = loss.item()
-        out[splits] = losses.mean()
-    model.train()
-    return out
+# @torch.no_grad()
+# def estimate_loss():
+#     out = {}
+#     model.eval()
+#     for splits in ['train', 'val']:
+#         losses = torch.zeros(eval_iters)
+#         for k in range(eval_iters):
+#             X, Y = split(splits)
+#             logits, loss = model(X, Y)
+#             losses[k] = loss.item()
+#         out[splits] = losses.mean()
+#     model.train()
+#     return out
 
 # %% [markdown]
 # # Create Model
@@ -234,40 +234,40 @@ class BigramLanguageModel(nn.Module):
         return idx
 
 # %%
-model = BigramLanguageModel()
-m = model.to(device)
-print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
+# model = BigramLanguageModel()
+# m = model.to(device)
+# print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
 
 # %% [markdown]
 # # Train the Model
 
 # %%
-optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+# optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-for iter in range(max_iters):
-    if iter % eval_interval == 0 or iter == max_iters - 1:
-        losses = estimate_loss()
-        print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
-    xb, yb = split('train')
-    logits, loss = model(xb, yb)
-    optimizer.zero_grad(set_to_none=True)
-    loss.backward()
-    optimizer.step()
+# for iter in range(max_iters):
+#     if iter % eval_interval == 0 or iter == max_iters - 1:
+#         losses = estimate_loss()
+#         print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
+#     xb, yb = split('train')
+#     logits, loss = model(xb, yb)
+#     optimizer.zero_grad(set_to_none=True)
+#     loss.backward()
+#     optimizer.step()
 
 # %% [markdown]
 # # Generate Text
 
 # %%
-def generate(num_words):
-    context = torch.zeros((1, 1), dtype=torch.long, device=device)
-    print(text_processor.decode(m.generate(context, max_new_tokens = num_words)[0].tolist()))
+# def generate(num_words):
+#     context = torch.zeros((1, 1), dtype=torch.long, device=device)
+#     print(text_processor.decode(m.generate(context, max_new_tokens = num_words)[0].tolist()))
 
-# %%
-generate(1000)
+# # %%
+# generate(1000)
 
-# %%
-model_save_path = 'bigram_language_model.pth'
-torch.save(model.state_dict(), model_save_path)
+# # %%
+# model_save_path = 'bigram_language_model.pth'
+# torch.save(model.state_dict(), model_save_path)
 
 # %%
 
