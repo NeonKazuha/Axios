@@ -63,7 +63,7 @@ device
 # # Split Dataset
 
 # %%
-# import torch.nn as nn
+import torch.nn as nn
 
 # %%
 # data = torch.tensor(text_processor.encode(text), dtype = torch.long)
@@ -104,7 +104,7 @@ dropout = 0.2
 # # Define Error List
 
 # %%
-# import torch.nn.functional as F
+import torch.nn.functional as F
 
 # %%
 # @torch.no_grad()
