@@ -2,7 +2,7 @@ import streamlit as st
 import torch
 import torch.nn.functional as F
 
-from axiosthingy import BigramLanguageModel, device, block_size, Preprocess
+from axiosthingy import BigramLanguageModel, device, block_size, encode, decode
 
 @st.cache_resource
 def load_model():

@@ -24,22 +24,12 @@
 # # Text Processing
 
 # %%
-class Preprocess():
-    def __init__(self, text):
-        super().__init__()
-        self.text = text
-        
-    def create_vocab(self):
-        vocab = sorted(list(set(self.text)))
-        self.stoi = {s: i for i, s in enumerate(vocab)}
-        self.itos = {i: s for s, i in self.stoi.items()}
-        return vocab, len(vocab), self.stoi, self.itos
+def encode(string):
+    return [stoi[char] for char in string]
     
-    def encode(self, string):
-        return [self.stoi[char] for char in string]
-    
-    def decode(self, array):
-        return ''.join(self.itos[idx] for idx in array)
+def decode(array):
+    return ''.join(itos[idx] for idx in array) 
+
 
 # %%
 # text_processor = Preprocess(text)
