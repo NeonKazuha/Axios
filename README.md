@@ -64,3 +64,34 @@ You can use the application directly through the [live demo](https://axiosav.str
 
 ## Project Structure
 
+axios/
+├── axiosthingy.py # Contains the model and preprocessing classes
+├── app.py # Streamlit application
+├── avengers.pth # Pre-trained model weights
+├── requirements.txt # Python dependencies
+├── README.md # Project documentation
+└── LICENSE # MIT License
+
+
+## Built With
+
+- [PyTorch](https://pytorch.org/): For training and implementing the transformer model.
+- [Streamlit](https://streamlit.io/): For building the interactive web interface.
+- [Kaggle](https://www.kaggle.com/): Sourced the dataset of MCU subtitles.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contributing
+
+Contributions to this project are not accepted at this time.
+
+## Acknowledgments
+
+- Inspired by the amazing work of the Marvel Cinematic Universe.
+- Thanks to Kaggle for providing access to valuable datasets.
+
+---
+
+*Note: This project was developed for educational purposes and may not cover all aspects of a production-ready application.*
