@@ -42,8 +42,8 @@ class Preprocess():
         return ''.join(self.itos[idx] for idx in array)
 
 # %%
-text_processor = Preprocess(text)
-vocab, vocab_size, stoi, itos = text_processor.create_vocab()
+# text_processor = Preprocess(text)
+# vocab, vocab_size, stoi, itos = text_processor.create_vocab()
 
 # # %%
 # print(text_processor.encode('hello'))
@@ -95,6 +95,7 @@ n_embd = 384
 n_head = 6
 n_layer = 6
 dropout = 0.2
+vocab_size = 84
 
 # %%
 # Xtr, ytr = split('train')
