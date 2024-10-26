@@ -83,10 +83,6 @@ axios/
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Contributing
-
-Contributions to this project are not accepted at this time.
-
 ## Acknowledgments
 
 - Inspired by the amazing work of the Marvel Cinematic Universe.
